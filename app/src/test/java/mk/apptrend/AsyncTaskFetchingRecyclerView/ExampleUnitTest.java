@@ -1,4 +1,4 @@
-package mk.apptrend.AsyncTaskFetching;
+package mk.apptrend.AsyncTaskFetchingRecyclerView;
 
 import org.junit.Test;
 

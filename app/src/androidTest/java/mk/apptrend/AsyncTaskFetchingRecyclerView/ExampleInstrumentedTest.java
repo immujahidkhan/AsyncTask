@@ -1,4 +1,4 @@
-package mk.apptrend.AsyncTaskFetching;
+package mk.apptrend.AsyncTaskFetchingRecyclerView;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("mk.apptrend.AsyncTaskFetching", appContext.getPackageName());
+        assertEquals("mk.apptrend.AsyncTaskFetchingRecyclerView", appContext.getPackageName());
     }
 }

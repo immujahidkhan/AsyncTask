@@ -1,4 +1,4 @@
-package mk.apptrend.AsyncTaskFetching;
+package mk.apptrend.AsyncTaskFetchingRecyclerView;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;

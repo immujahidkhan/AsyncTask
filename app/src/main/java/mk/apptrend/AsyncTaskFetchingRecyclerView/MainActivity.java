@@ -1,27 +1,35 @@
-package mk.apptrend.AsyncTaskFetching;
+package mk.apptrend.AsyncTaskFetchingRecyclerView;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class MainActivity extends Activity {
     private static String urlString;
+    ArrayList<ModelClass> list = new ArrayList<>();
+    RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final TextView tv =  findViewById(R.id.tv);
-        tv.setText("");
-        urlString = "http://rem.witorbit.net/index.php?display=signup&ajax=1&array=1&fk_state_id=7";
+        recyclerView = findViewById(R.id.recycler_view);
+        recyclerView.hasFixedSize();
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(manager);
+        //urlString = "http://rem.witorbit.net/index.php?display=signup&ajax=1&array=1&fk_state_id=7";
+        urlString = "https://volleyandroid.000webhostapp.com/androidindex.php";
         //new ProcessJSON().execute(urlString);
         new CitiesListJSON().execute(urlString);
     }
@@ -52,17 +60,16 @@ public class MainActivity extends Activity {
             //super.onPostExecute(s);
             if (s != null) {
                 progressDialog.dismiss();
-                TextView tv = findViewById(R.id.tv);
                 try {
                     JSONObject obj = new JSONObject(s);
-                    JSONArray array = obj.getJSONArray("cities_list");
+                    JSONArray array = obj.getJSONArray("records");
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject weather_object_0 = array.getJSONObject(i);
-                        String weather_0_id = weather_object_0.getString("id");
-                        String weather_0_main = weather_object_0.getString("name");
-                        tv.setText(tv.getText() + "id..." + weather_0_id + "\n");
-                        tv.setText(tv.getText() + "name..." + weather_0_main + "\n");
+                        String id = weather_object_0.getString("Id");
+                        String name = weather_object_0.getString("Name");
+                        list.add(new ModelClass(id,name));
                     }
+                    recyclerView.setAdapter(new AdapterClass(MainActivity.this,list));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
